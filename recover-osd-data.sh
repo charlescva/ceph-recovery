@@ -20,6 +20,9 @@ for x in $(for i in $(ls *.files); do echo $i; done); do ./consolidate-stuff.sh 
 rm *.files
 cat result.csv | sort -t "," -k2 -u > sorted.results
 rm result.csv
-scp-obs.sh
+./scp-obs.sh
 cd test
-for i in $(ls); do dd if=$i of=test.raw bs=1024 conv=notrunc oflag=append; done
+for i in $(ls); do dd if=$i of=$WILDCARD.qcow2 bs=1024 conv=notrunc oflag=append; done
+mv $WILDCARD.qcow2 ..
+cd ...
+rm -Rf test
